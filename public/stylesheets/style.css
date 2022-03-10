@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --dark-theme-color: rgb(24,59,52);
+  --light-theme-color: rgb(242,212,205);
+  --med-theme-color: rgb(240,160,150);
+  --text-dark: rgb(30,30,30);
+  --text-light: rgb(242,242,242);
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+  margin: 0px;
+  font-family: 'Cormorant Garamond', serif;
+  background-color: var(--dark-theme-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--light-theme-color);
+  text-align: center;
+}
+
+.vertical-divider {
+  height: 60px;
+  width: 4px;
+  background-color: var(--light-theme-color);
+  margin: 20px 10px;
+}
+
+.main {
+  width: 100%;
+  background-color: var(--dark-theme-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.headline {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--light-theme-color);
+  max-width: 70%;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  margin: 0px 30px;
+  flex-direction: column;
+  gap: 40px;
+  background-color: rgb(255,255,255);
+  font-size: 1.25rem;
+  padding: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-title {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+input {
+  padding: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  border: 1px solid var(--light-theme-color);
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: 2px solid var(--med-theme-color);
+}
+
+label {
+  margin-left: 10px;
+  margin-right: 30px;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+#birthday-group {
+  display: flex;
+  align-items: center;
+}
+
+#birthday {
+  flex: 1;
+}
+
+button {
+  width: fit-content;
+  padding: 10px 50px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  background-color: var(--text-light);
+  border: 2px solid var(--light-theme-color);
+  border-radius: 4px;
+  align-self: center;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--light-theme-color);
+}
+
+@media screen and (min-width: 500px) {
+  .main {
+    max-width: 900px;
+  }  
+}

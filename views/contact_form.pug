@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    div.headline Please share your contact info with us!
+    div.vertical-divider
+    form(method='POST' action='')
+        div.form-group
+            div.section-title CONTACT NAME
+            input(type='text', placeholder="e.g., John and Jane Smith")
+        div.form-group
+            div.section-title MAILING ADDRESS
+            input(type='text', placeholder="Street Address", name="streetAddress")
+            input(type='text', placeholder="Apt/Suite", name="aptSuite")
+            input(type='text', placeholder="City", name="city")
+            input(type='text', placeholder="State / Province", name="state")
+            input(type='text', placeholder="Zip / Postal Code", name="zip")
+        div.form-group
+            div.section-title HOUSEHOLD MEMBERS
+            input(type='text', placeholder="First Name", name="firstName")
+            input(type='text', placeholder="Last Name", name="lastName")
+            div#birthday-group
+                label(for="birthday") Birthday
+                input#birthday(type='date', name="birthday")
+            input(type='text', placeholder="Phone Number", name="phone")
+            input(type='email', placeholder="Email", name="email")
+        button(type="submit") SAVE
