@@ -1,12 +1,19 @@
 extends layout
 
 block content
-    div.headline Please share your contact info with us!
-    div.vertical-divider
+    div.hero
+        div
+        div.headline We can't wait to see you.
+        div.subhead But first, we need to find you.
+        div 
+        div.icon-container
+            div.caption Please share your contact info below 
+            div.icon arrow_downward
+        div
     form(method='POST' action='')
         div.form-group
             div.section-title CONTACT NAME
-            input(type='text', placeholder="e.g., John and Jane Smith")
+            input(type='text', placeholder="e.g., John and Jane Smith", name="familyName")
         div.form-group
             div.section-title MAILING ADDRESS
             input(type='text', placeholder="Street Address", name="streetAddress")

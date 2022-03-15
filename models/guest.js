@@ -32,7 +32,7 @@ var AddressSchema = new Schema(
 var GuestSchema = new Schema(
     {
         family_name: {type: String, required: true, maxLength: 100},
-        address: {type: AddressSchema, required: true},
+        address: {type: AddressSchema, required: false},
         members: [{type: MemberSchema}]
     }
 );
