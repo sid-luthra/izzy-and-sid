@@ -6,7 +6,13 @@ block content
         div Name 
         div Address
         each contact in contact_list
-            div #{contact.family_name} 
-            div #{contact.address}
+            if contact.family_name
+                div #{contact.family_name}
+            else
+                div 
+            if contact.address
+                div #{contact.address.fullAddress}
+            else
+                div
         else 
             div There are no guests.

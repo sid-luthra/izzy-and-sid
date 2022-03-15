@@ -1,5 +1,6 @@
 var Guest = require('../models/guest');
 const { body, validationResult } = require("express-validator");
+const { request } = require('express');
 
 // Display all guests.
 exports.contact_list = function(req, res) {
@@ -22,7 +23,16 @@ exports.contact_input_post = [
         const errors = validationResult(req);
 
         var guest = new Guest(
-            { family_name: req.body.familyName }
+            { 
+                family_name: req.body.familyName,
+                address: {
+                    streetAddress: req.body.streetAddress,
+                    aptSuite: req.body.aptSuite,
+                    city: req.body.city,
+                    state: req.body.state,
+                    zip: req.body.zip
+                }
+            }
         );
 
         if (!errors.isEmpty()) {

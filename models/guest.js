@@ -25,9 +25,18 @@ var AddressSchema = new Schema(
         city: {type: String, required: true, maxLength: 100},
         state: {type: String, required: true, maxLength: 100},
         zip: {type: Number, required: true, minLength: 5, maxLength: 5},
-        country: {type: String, required: true, maxLength: 100},
+        country: {type: String, required: false, maxLength: 100},
     }
 );
+
+AddressSchema.virtual('fullAddress').get(function() {
+    var addressString = this.streetAddress;
+    if (this.aptSuite) {
+        addressString += ", " + this.aptSuite;
+    }
+    addressString += ", " + this.city + ", " + this.state + " " + this.zip;
+    return addressString; 
+})
 
 var GuestSchema = new Schema(
     {
@@ -36,5 +45,7 @@ var GuestSchema = new Schema(
         members: [{type: MemberSchema}]
     }
 );
+
+
 
 module.exports = mongoose.model('Guest', GuestSchema);

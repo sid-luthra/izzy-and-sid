@@ -29,6 +29,7 @@ block content
             input(type='text', placeholder="Zip / Postal Code", name="zip")
         div.form-group
             div.section-title HOUSEHOLD MEMBERS
+            div.section-subtitle Person #1
             input(type='text', placeholder="First Name", name="firstName")
             input(type='text', placeholder="Last Name", name="lastName")
             div#birthday-group
@@ -36,4 +37,5 @@ block content
                 input#birthday(type='date', name="birthday")
             input(type='text', placeholder="Phone Number", name="phone")
             input(type='email', placeholder="Email", name="email")
+            button(type="button") Add another person
         button(type="submit") SAVE
