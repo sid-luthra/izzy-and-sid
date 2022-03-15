@@ -1,4 +1,5 @@
 var Guest = require('../models/guest');
+const { body, validationResult } = require("express-validator");
 
 // Display all guests.
 exports.contact_list = function(req, res) {
@@ -11,15 +12,30 @@ exports.contact_input_get = function(req, res) {
 };
 
 // Handle contact input on POST.
-exports.contact_input_post = function(req, res, next) {
-    var guest = new Guest(
-        { family_name: req.body.familyName }
-    );
-    guest.save(function (err) {
-        if (err) {return next(err); }
-        res.redirect('/contact-success')
-    })
-};
+exports.contact_input_post = [
+    
+    body('familyName', 'Family name required').trim().isLength({min: 1}).escape(),
+
+    function(req, res, next) {
+
+        // Extract validation errors from a request.
+        const errors = validationResult(req);
+
+        var guest = new Guest(
+            { family_name: req.body.familyName }
+        );
+
+        if (!errors.isEmpty()) {
+            res.render('contact_form', { guest: guest, errors: errors.array()});
+            return;
+        }
+        else {
+            guest.save(function (err) {
+                if (err) {return next(err); }
+                res.redirect('/contact-success')
+            })
+        } 
+    }];
 
 // Display success page on GET.
 exports.contact_success_get = function(req, res) {

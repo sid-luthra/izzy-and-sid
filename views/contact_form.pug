@@ -10,10 +10,14 @@ block content
             div.caption Please share your contact info below 
             div.icon arrow_downward
         div
+    if errors 
+        ul 
+            for error in errors 
+                li!= error.msg 
     form(method='POST' action='')
         div.form-group
             div.section-title CONTACT NAME
-            input(type='text', placeholder="e.g., John and Jane Smith", name="familyName")
+            input(type='text', placeholder="e.g., John and Jane Smith", name="familyName" value=(undefined===guest ? '' : guest.familyName))
         div.form-group
             div.section-title MAILING ADDRESS
             input(type='text', placeholder="Street Address", name="streetAddress")
