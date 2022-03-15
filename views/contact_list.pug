@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+    div.spacer
+    div.contact-table
+        div Name 
+        div Address
+        each contact in contact_list
+            div #{contact.family_name} 
+            div #{contact.address}
+        else 
+            div There are no guests.

@@ -24,4 +24,14 @@ exports.contact_input_post = function(req, res, next) {
 // Display success page on GET.
 exports.contact_success_get = function(req, res) {
     res.render('contact_success');
-}
+};
+
+// Display all contact info.
+exports.contact_list_get = function(req, res, next) {
+    Guest.find({})
+        .sort({family_name : 1})
+        .exec(function (err, list_contacts) {
+            if (err) { return next(err); }
+            res.render('contact_list', { contact_list: list_contacts });
+        });
+};

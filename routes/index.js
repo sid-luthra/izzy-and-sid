@@ -17,4 +17,7 @@ router.post('/contact-info', form_controller.contact_input_post);
 // GET success page
 router.get('/contact-success', form_controller.contact_success_get);
 
+// GET admin page
+router.get('/admin', form_controller.contact_list_get);
+
 module.exports = router;
