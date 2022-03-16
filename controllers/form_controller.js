@@ -199,14 +199,9 @@ var list_countries = [
     {name: 'Zimbabwe'}
 ]
 
-// Display all guests.
-exports.contact_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: full contact list');
-}
-
 // Display contact form on GET.
 exports.contact_input_get = function(req, res) {
-    res.render('contact_form', { country_list: list_countries });
+    res.render('contact_form', { country_list: list_countries, title: "Contact Form" });
 };
 
 // Handle contact input on POST.
@@ -248,7 +243,7 @@ exports.contact_input_post = [
 
 // Display success page on GET.
 exports.contact_success_get = function(req, res) {
-    res.render('contact_success');
+    res.render('contact_success', {title: "Thank you!"});
 };
 
 // Display all contact info.
@@ -257,6 +252,6 @@ exports.contact_list_get = function(req, res, next) {
         .sort({family_name : 1})
         .exec(function (err, list_contacts) {
             if (err) { return next(err); }
-            res.render('contact_list', { contact_list: list_contacts });
+            res.render('contact_list', { contact_list: list_contacts, title: "Admin" });
         });
 };
