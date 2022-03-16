@@ -16,6 +16,7 @@ exports.contact_input_get = function(req, res) {
 exports.contact_input_post = [
     
     body('familyName', 'Family name required').trim().isLength({min: 1}).escape(),
+    body('familyName', 'Family name should be longer').trim().isLength({min: 3}).escape(),
 
     function(req, res, next) {
 
