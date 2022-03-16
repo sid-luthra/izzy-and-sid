@@ -5,7 +5,7 @@ var form_controller = require('../controllers/form_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home page!' });
+  res.redirect('/contact-info');
 });
 
 // GET contact info form
