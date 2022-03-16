@@ -11,8 +11,8 @@ var ContactSchema = new Schema(
 
 var MemberSchema = new Schema(
     {
-        firstName: {type: String, required: true, maxLength: 100},
-        lastName: {type: String, required: true, maxLength: 100},
+        firstName: {type: String, maxLength: 100},
+        lastName: {type: String, maxLength: 100},
         birthday: {type: Date},
         contactInfo: {type: ContactSchema}
     }
@@ -20,12 +20,12 @@ var MemberSchema = new Schema(
 
 var AddressSchema = new Schema(
     {
-        streetAddress: {type: String, required: true, maxLength: 100},
+        streetAddress: {type: String, maxLength: 100},
         aptSuite: {type: String, maxLength: 100},
-        city: {type: String, required: true, maxLength: 100},
-        state: {type: String, required: true, maxLength: 100},
-        zip: {type: Number, required: true, minLength: 5, maxLength: 5},
-        country: {type: String, required: false, maxLength: 100},
+        city: {type: String, maxLength: 100},
+        state: {type: String, maxLength: 100},
+        zip: {type: Number, minLength: 5, maxLength: 5},
+        country: {type: String},
     }
 );
 
@@ -40,7 +40,7 @@ AddressSchema.virtual('fullAddress').get(function() {
 
 var GuestSchema = new Schema(
     {
-        family_name: {type: String, required: true, maxLength: 100},
+        family_name: {type: String, maxLength: 100},
         address: {type: AddressSchema, required: false},
         members: [{type: MemberSchema}]
     }
