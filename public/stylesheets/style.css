@@ -135,6 +135,12 @@ form {
   font-weight: 700;
 }
 
+.member {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 input, select {
   padding: 10px;
   font-family: 'Work Sans', sans-serif;
@@ -158,12 +164,21 @@ label {
   color: var(--text-dark);
 }
 
+button.text-button {
+  border: none;
+  padding: 0px;
+  align-self: flex-end;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
 button {
   width: fit-content;
   padding: 10px 50px;
   font-family: var(--sans-serif);
   font-size: 1.25rem;
-  color: var(--text-dark);
+  font-weight: 700;
+  color: var(--dark-theme-color);
   background-color: var(--text-light);
   border: 2px solid var(--light-theme-color);
   border-radius: 4px;
@@ -174,6 +189,20 @@ button {
 
 button:hover {
   background-color: var(--light-theme-color);
+}
+
+button.text-button:hover {
+  background-color: white;
+  color: var(--light-theme-color);
+}
+
+.divider {
+  border-top: 1px solid var(--dark-theme-color);
+  margin: 30px 0px;
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (max-width: 500px) {

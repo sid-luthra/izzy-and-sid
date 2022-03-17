@@ -215,17 +215,20 @@ exports.contact_input_post = [
         // Extract validation errors from a request.
         const errors = validationResult(req);
 
+        var address = 
+            {
+                streetAddress: req.body.streetAddress,
+                aptSuite: req.body.aptSuite,
+                city: req.body.city,
+                state: req.body.state,
+                zip: req.body.zip,
+                country: req.body.country
+            }
+
         var guest = new Guest(
             { 
-                family_name: req.body.familyName,
-                address: {
-                    streetAddress: req.body.streetAddress,
-                    aptSuite: req.body.aptSuite,
-                    city: req.body.city,
-                    state: req.body.state,
-                    zip: req.body.zip,
-                    country: req.body.country
-                }
+                familyName: req.body.familyName,
+                address: address
             }
         );
 
@@ -234,9 +237,11 @@ exports.contact_input_post = [
             return;
         }
         else {
-            guest.save(function (err) {
+                guest.save(function (err) {
                 if (err) {return next(err); }
-                res.redirect('/contact-success')
+                // res.redirect('/contact-success')
+                console.log(req.body)
+                console.log(guest)
             })
         } 
     }];
