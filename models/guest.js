@@ -18,8 +18,11 @@ const GuestSchema = new Schema(
       lastName: { type: String, maxLength: 100 },
       phone: { type: String, maxLength: 15 },
       email: { type: String, maxLength: 100 },
-      birthday: { type: Date },
+      month: { type: String },
+      day: { type: Number },
+      year: { type: Number },
     }],
+    created: { type: Date },
   },
 );
 

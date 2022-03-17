@@ -223,10 +223,44 @@ exports.contact_input_post = [
       country: req.body.country,
     };
 
+    const memberCount = req.body.memberCounter;
+
     const guest = new Guest({
       familyName: req.body.familyName,
       address,
+      memberCount,
+      members: [],
+      created: new Date(),
     });
+
+    for (let i = 0; i < memberCount; i += 1) {
+      console.log(`firstName${i}`);
+      const firstName = req.body[`firstName${i}`];
+      const lastName = req.body[`lastName${i}`];
+      const phone = req.body[`phone${i}`];
+      const email = req.body[`email${i}`];
+      const month = req.body[`month${i}`];
+      const day = req.body[`day${i}`];
+      const year = req.body[`year${i}`];
+      console.table({
+        firstName,
+        lastName,
+        phone,
+        email,
+        month,
+        day,
+        year,
+      });
+      guest.members.push({
+        firstName,
+        lastName,
+        phone,
+        email,
+        month,
+        day,
+        year,
+      });
+    }
 
     if (!errors.isEmpty()) {
       res.render('contact_form', { guest, country_list: listCountries, errors: errors.array() });

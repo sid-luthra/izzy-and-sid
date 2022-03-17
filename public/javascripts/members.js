@@ -1,6 +1,6 @@
 const renumberMembers = () => {
   const members = document.querySelectorAll('.member:not(#memberTemplate)');
-  let count = 1;
+  let count = 0;
   members.forEach((member) => {
     member.id = `member${count}`;
 
@@ -25,7 +25,7 @@ const removeMember = (e) => {
 
 const addMember = () => {
   const counter = document.getElementById('memberCounter');
-  const newMemberCount = Number.parseInt(counter.value, 10) + 1;
+  const newMemberCount = Number.parseInt(counter.value, 10);
 
   const container = document.getElementById('members-container');
 
@@ -52,6 +52,6 @@ const addMember = () => {
   newMember.appendChild(divider);
 
   container.appendChild(newMember);
-  counter.value = newMemberCount;
+  counter.value = newMemberCount + 1;
 };
 
