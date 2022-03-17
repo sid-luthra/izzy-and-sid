@@ -1,5 +1,5 @@
 const renumberMembers = () => {
-  const members = document.querySelectorAll('.member');
+  const members = document.querySelectorAll('.member:not(#memberTemplate)');
   let count = 1;
   members.forEach((member) => {
     member.id = `member${count}`;
