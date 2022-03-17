@@ -34,20 +34,24 @@ block content
         div.form-group
             div.section-title HOUSEHOLD MEMBERS
             div#members-container
-                input(type="hidden" id="memberCounter" name="memberCounter" value=1)
-                div.member#member1
-                    input(type='text', placeholder="First Name", name="firstName")
-                    input(type='text', placeholder="Last Name", name="lastName")
-                    input(type='tel', placeholder="Phone Number", name="phone")
-                    input(type='email', placeholder="Email", name="email")
-                    div#birthday-group
-                        label(for="birthday") Birthday
-                        select(name="month", placeholder="Select month")
-                            option(value="January") January
-                            option(value="February") February
-                        select(name="day", placeholder="Select day")
-                            option(value="6") 6  
-                    div.divider       
+                input(type="hidden" id="memberCounter" name="memberCounter" value=(guest ? guest.memberCount : 1))
+                - var memberCount = (guest ? guest.memberCount : 1)
+                - var n = 0;
+                while n < memberCount
+                    - n++
+                    div(id= `member${n}`).member
+                        input(type='text', placeholder="First Name", name="firstName")
+                        input(type='text', placeholder="Last Name", name="lastName")
+                        input(type='tel', placeholder="Phone Number", name="phone")
+                        input(type='email', placeholder="Email", name="email")
+                        div#birthday-group
+                            label(for="birthday") Birthday
+                            select(name="month", placeholder="Select month")
+                                option(value="January") January
+                                option(value="February") February
+                            select(name="day", placeholder="Select day")
+                                option(value="6") 6  
+                        div.divider       
             button(type="button" onclick='addMember()').text-button + ADD ANOTHER PERSON
         button(type="submit") SAVE
         div.member.hidden#memberTemplate
