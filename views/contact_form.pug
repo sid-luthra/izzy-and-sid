@@ -40,30 +40,34 @@ block content
                 while n < memberCount
                     - n++
                     div(id= `member${n}`).member
-                        input(type='text', placeholder="First Name", name="firstName")
-                        input(type='text', placeholder="Last Name", name="lastName")
-                        input(type='tel', placeholder="Phone Number", name="phone")
-                        input(type='email', placeholder="Email", name="email")
+                        input(type='text', placeholder="First Name", name=`firstName${n}`).member-input
+                        input(type='text', placeholder="Last Name", name=`lastName${n}`).member-input
+                        input(type='tel', placeholder="Phone Number", name=`phone${n}`).member-input
+                        input(type='email', placeholder="Email", name=`email${n}`).member-input
                         div#birthday-group
-                            label(for="birthday") Birthday
-                            select(name="month", placeholder="Select month")
+                            label Birthday
+                            select(name=`month${n}`).member-input
                                 option(value="January") January
-                                option(value="February") February
-                            select(name="day", placeholder="Select day")
+                                option(value="February" selected) February
+                            select(name=`day${n}`).member-input
                                 option(value="6") 6  
+                            select(name=`year${n}`).member-input
+                                option(value="1991") 1991  
                         div.divider       
             button(type="button" onclick='addMember()').text-button + ADD ANOTHER PERSON
         button(type="submit") SAVE
         div.member.hidden#memberTemplate
-            input(type='text', placeholder="First Name", name="firstName")
-            input(type='text', placeholder="Last Name", name="lastName")
-            input(type='tel', placeholder="Phone Number", name="phone")
-            input(type='email', placeholder="Email", name="email")
+            input(type='text', placeholder="First Name", name="firstName").member-input
+            input(type='text', placeholder="Last Name", name="lastName").member-input
+            input(type='tel', placeholder="Phone Number", name="phone").member-input
+            input(type='email', placeholder="Email", name="email").member-input
             div#birthday-group
                 label(for="birthday") Birthday
-                select(name="month", placeholder="Select month")
+                select(name="month").member-input
                     option(value="January") January
                     option(value="February") February
-                select(name="day", placeholder="Select day")
+                select(name="day").member-input
                     option(value="6") 6  
+                select(name="year").member-input
+                    option(value="1991") 1991  
 
