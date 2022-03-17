@@ -9,29 +9,39 @@ block content
             ul 
                 for error in errors 
                     li!= error.msg 
-        form(method='POST' action='')
+        form(method='POST' action='' novalidate)
             div.form-group
                 div.section-title CONTACT NAME
-                input(type='text', placeholder="e.g., John and Jane Smith", name="familyName" value=(guest ? guest.family_name : ''))
+                div.input-group
+                    input(type='text' placeholder="e.g., John and Jane Smith" name="familyName" value=(guest ? guest.family_name : '' ) required="true" id="familyName")
+                    span.error
             div.form-group
                 div.section-title MAILING ADDRESS
-                input(type='text', placeholder="Street Address", name="streetAddress" value=(guest ? guest.address.streetAddress : ''))
-                input(type='text', placeholder="Apt/Suite", name="aptSuite" value=(guest ? guest.address.aptSuite : ''))
-                input(type='text', placeholder="City", name="city", value=(guest ? guest.address.city : ''))
-                input(type='text', placeholder="State / Province", name="state" value=(guest ? guest.address.state : ''))
-                input(type='text', placeholder="Zip / Postal Code", name="zip", value=(guest ? guest.address.zip : ''))
-                select(name="country")
-                    each country in country_list
-                        if guest 
-                            if country.name===guest.address.country
-                                option(value= country.name selected) #{country.name}
+                div.input-group
+                    select(name="country" id="country")
+                        each country in country_list
+                            if guest 
+                                if country.name===guest.address.country
+                                    option(value= country.name selected) #{country.name}
+                                else 
+                                    option(value= country.name) #{country.name}
                             else 
-                                option(value= country.name) #{country.name}
-                        else 
-                            if country.name==="United States"
-                                option(value= country.name selected) #{country.name}
-                            else
-                                option(value= country.name) #{country.name}
+                                if country.name==="United States"
+                                    option(value= country.name selected) #{country.name}
+                                else
+                                    option(value= country.name) #{country.name}
+                div.input-group
+                    input(id="streetAddress" type='text', placeholder="Street Address", name="streetAddress" value=(guest ? guest.address.streetAddress : '') required="true")
+                    span.error
+                div.input-group
+                    input(id="city" type='text', placeholder="City", name="city", value=(guest ? guest.address.city : '') required="true")
+                    span.error
+                div.input-group
+                    input(id="state" type='text', placeholder="State / Province", name="state" value=(guest ? guest.address.state : ''))
+                    span.error
+                div.input-group
+                    input(id="zip" type='text', placeholder="Zip / Postal Code", name="zip", value=(guest ? guest.address.zip : ''))
+                    span.error
             div.form-group
                 div.section-title HOUSEHOLD MEMBERS
                 div#members-container

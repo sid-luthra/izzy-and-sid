@@ -132,6 +132,12 @@ form {
   gap: 20px;
 }
 
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .section-title {
   color: var(--dark-theme-color);
   font-weight: 700;
@@ -157,9 +163,15 @@ select {
   height: calc(1rem + 25px);
 }
 
-:invalid, ::placeholder {
+::placeholder {
   color: darkgray;
   opacity: 1;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: red;
+  margin-left: 5px;
 }
 
 #birthday-group {
