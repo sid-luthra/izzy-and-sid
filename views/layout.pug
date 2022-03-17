@@ -6,8 +6,5 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/members.js' defer)
   body
-    .header
-      div.title Izzy & Sid
-    .main
-      block content
-    .footer
+    include ./header.pug
+    block content

@@ -32,10 +32,10 @@ body {
 .header {
   position: fixed;
   width: 100%;
+  height: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 40px;
   
   text-align: center;
   font-family: 'Playfair Display', serif;
@@ -48,7 +48,7 @@ body {
 }
 
 .spacer {
-  height: calc(80px + 2rem);
+  height: 6rem;
 }
 
 .main {
@@ -66,10 +66,9 @@ a {
 }
 
 .hero {
-  min-height: calc(100vh - 80px - 2rem);
+  min-height: calc(100vh - 6rem);
   display: grid;
-  grid-template-rows: 1fr auto auto 1fr auto 30px;
-  row-gap: 20px;
+  grid-template-rows: 2fr auto 20px auto 2fr auto 1fr;
 }
 
 .headline {
@@ -106,6 +105,7 @@ a {
 
 .caption {
   font-size: 1.25rem;
+  text-align: center;
 }
 
 .icon {
@@ -150,21 +150,38 @@ input, select {
   border: 1px solid var(--light-theme-color);
   border-radius: 4px;
   background-color: white;
+  color: black;
 }
 
-#birthday-group > select {
-  margin: 0px 10px;
+select {
+  height: calc(1rem + 25px);
+}
+
+:invalid, ::placeholder {
+  color: darkgray;
+  opacity: 1;
+}
+
+#birthday-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#birthday-input {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+#birthday-label {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-left: 5px;
 }
 
 input:focus, select:focus {
   outline: 2px solid var(--med-theme-color);
-}
-
-label {
-  margin-left: 10px;
-  margin-right: 30px;
-  font-size: 1.1rem;
-  color: var(--text-dark);
 }
 
 button.text-button {
@@ -201,7 +218,8 @@ button.text-button:hover {
 
 .divider {
   border-top: 1px solid var(--dark-theme-color);
-  margin: 30px 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .hidden {
@@ -212,4 +230,7 @@ button.text-button:hover {
   .headline {
     font-size: 3rem;
   }  
+  .hero {
+    grid-template-rows: 2fr auto 20px auto 2fr auto 2fr;
+  }
 }

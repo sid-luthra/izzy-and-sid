@@ -1,73 +1,76 @@
 extends layout
 
 block content
-    div.spacer 
-    unless errors 
-        include ./form_hero.pug
-    if errors 
-        ul 
-            for error in errors 
-                li!= error.msg 
-    form(method='POST' action='')
-        div.form-group
-            div.section-title CONTACT NAME
-            input(type='text', placeholder="e.g., John and Jane Smith", name="familyName" value=(guest ? guest.family_name : ''))
-        div.form-group
-            div.section-title MAILING ADDRESS
-            input(type='text', placeholder="Street Address", name="streetAddress" value=(guest ? guest.address.streetAddress : ''))
-            input(type='text', placeholder="Apt/Suite", name="aptSuite" value=(guest ? guest.address.aptSuite : ''))
-            input(type='text', placeholder="City", name="city", value=(guest ? guest.address.city : ''))
-            input(type='text', placeholder="State / Province", name="state" value=(guest ? guest.address.state : ''))
-            input(type='text', placeholder="Zip / Postal Code", name="zip", value=(guest ? guest.address.zip : ''))
-            select(name="country")
-                each country in country_list
-                    if guest 
-                        if country.name===guest.address.country
-                            option(value= country.name selected) #{country.name}
+    div.main
+        div.spacer 
+        unless errors 
+            include ./form_hero.pug
+        if errors 
+            ul 
+                for error in errors 
+                    li!= error.msg 
+        form(method='POST' action='')
+            div.form-group
+                div.section-title CONTACT NAME
+                input(type='text', placeholder="e.g., John and Jane Smith", name="familyName" value=(guest ? guest.family_name : ''))
+            div.form-group
+                div.section-title MAILING ADDRESS
+                input(type='text', placeholder="Street Address", name="streetAddress" value=(guest ? guest.address.streetAddress : ''))
+                input(type='text', placeholder="Apt/Suite", name="aptSuite" value=(guest ? guest.address.aptSuite : ''))
+                input(type='text', placeholder="City", name="city", value=(guest ? guest.address.city : ''))
+                input(type='text', placeholder="State / Province", name="state" value=(guest ? guest.address.state : ''))
+                input(type='text', placeholder="Zip / Postal Code", name="zip", value=(guest ? guest.address.zip : ''))
+                select(name="country")
+                    each country in country_list
+                        if guest 
+                            if country.name===guest.address.country
+                                option(value= country.name selected) #{country.name}
+                            else 
+                                option(value= country.name) #{country.name}
                         else 
-                            option(value= country.name) #{country.name}
-                    else 
-                        if country.name==="United States"
-                            option(value= country.name selected) #{country.name}
-                        else
-                            option(value= country.name) #{country.name}
-        div.form-group
-            div.section-title HOUSEHOLD MEMBERS
-            div#members-container
-                input(type="hidden" id="memberCounter" name="memberCounter" value=(guest ? guest.memberCount : 1))
-                - var memberCount = (guest ? guest.memberCount : 1)
-                - var n = 0;
-                while n < memberCount
-                    div(id= `member${n}`).member
-                        input(type='text', placeholder="First Name", name=`firstName${n}`).member-input
-                        input(type='text', placeholder="Last Name", name=`lastName${n}`).member-input
-                        input(type='tel', placeholder="Phone Number", name=`phone${n}`).member-input
-                        input(type='email', placeholder="Email", name=`email${n}`).member-input
-                        div#birthday-group
-                            label Birthday
-                            select(name=`month${n}`).member-input
-                                option(value="January") January
-                                option(value="February" selected) February
-                            select(name=`day${n}`).member-input
-                                option(value="6") 6  
-                            select(name=`year${n}`).member-input
-                                option(value="1991") 1991  
-                        div.divider   
-                    - n++    
-            button(type="button" onclick='addMember()').text-button + ADD ANOTHER PERSON
-        button(type="submit") SAVE
-        div.member.hidden#memberTemplate
-            input(type='text', placeholder="First Name", name="firstName").member-input
-            input(type='text', placeholder="Last Name", name="lastName").member-input
-            input(type='tel', placeholder="Phone Number", name="phone").member-input
-            input(type='email', placeholder="Email", name="email").member-input
-            div#birthday-group
-                label(for="birthday") Birthday
-                select(name="month").member-input
-                    option(value="January") January
-                    option(value="February") February
-                select(name="day").member-input
-                    option(value="6") 6  
-                select(name="year").member-input
-                    option(value="1991") 1991  
+                            if country.name==="United States"
+                                option(value= country.name selected) #{country.name}
+                            else
+                                option(value= country.name) #{country.name}
+            div.form-group
+                div.section-title HOUSEHOLD MEMBERS
+                div#members-container
+                    input(type="hidden" id="memberCounter" name="memberCounter" value=(guest ? guest.memberCount : 1))
+                    - var memberCount = (guest ? guest.memberCount : 1)
+                    - var n = 0;
+                    while n < memberCount
+                        div(id= `member${n}`).member
+                            input(type='text', placeholder="First Name", name=`firstName${n}`).member-input
+                            input(type='text', placeholder="Last Name", name=`lastName${n}`).member-input
+                            input(type='tel', placeholder="Phone Number", name=`phone${n}`).member-input
+                            input(type='email', placeholder="Email", name=`email${n}`).member-input
+                            div#birthday-group 
+                                div#birthday-label Birthday
+                                div#birthday-input
+                                    select(name=`month${n}`).member-input
+                                        option(disabled selected hidden) Month
+                                        option(value="January") January
+                                        option(value="February") February
+                                    select(name=`day${n}`).member-input
+                                        option(disabled selected hidden) Day
+                                        option(value="6") 6  
+                            div.divider   
+                        - n++    
+                button(type="button" onclick='addMember()').text-button + ADD ANOTHER PERSON
+            button(type="submit") SAVE
+            div.member.hidden#memberTemplate
+                input(type='text', placeholder="First Name", name="firstName").member-input
+                input(type='text', placeholder="Last Name", name="lastName").member-input
+                input(type='tel', placeholder="Phone Number", name="phone").member-input
+                input(type='email', placeholder="Email", name="email").member-input
+                div#birthday-group 
+                    div#birthday-label Birthday
+                    div#birthday-input
+                        select(name=`month`).member-input
+                            option(disabled selected hidden) Month
+                            option(value="January") January
+                            option(value="February") February
+                        select(name=`day`).member-input
+                            option(disabled selected hidden) Day
+                            option(value="6") 6  
 
