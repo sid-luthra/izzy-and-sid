@@ -13,7 +13,9 @@ const GuestSchema = new Schema(
       zip: { type: Number, minLength: 5, maxLength: 5 },
       country: { type: String },
     },
+    memberCount: { type: Number },
     members: [{
+      title: { type: String, maxLength: 100 },
       firstName: { type: String, maxLength: 100 },
       lastName: { type: String, maxLength: 100 },
       phone: { type: String, maxLength: 15 },

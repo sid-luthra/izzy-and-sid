@@ -11,12 +11,67 @@ block content
                     li!= error.msg 
         form(method='POST' action='' novalidate)
             div.form-group
-                div.section-title CONTACT NAME
-                div.input-group
-                    input(type='text' placeholder="e.g., John and Jane Smith" name="familyName" value=(guest ? guest.family_name : '' ) required="true" id="familyName")
-                    span.error
+                div.section-title WHO ARE YOU?
+                div#members-container
+                    input(type="hidden" id="memberCounter" name="memberCounter" value=(guest ? guest.memberCount : 1))
+                    - var memberCount = (guest ? guest.memberCount : 1)
+                    - var n = 0;
+                    while n < memberCount
+                        div(id= `member${n}`).member
+                            select(id="title" name=`title${n}`).member-input.small-select
+                                        option(disabled selected hidden) Title (optional)
+                                        option(value="Mr.") Mr.
+                                        option(value="Mrs.") Mrs.
+                                        option(value="Miss") Miss
+                                        option(value="Ms.") Ms.
+                                        option(value="Dr.") Dr.
+                                        option(value="Prof.") Prof.
+                                        option(value="Rev.") Rev.
+                                        option(value="Other") Other
+                            div.input-group
+                                input(type='text', placeholder="First Name", id=`firstName${n}` name=`firstName${n}` value=(guest ? guest.members[n].firstName : '' ) required="true").member-input
+                                span.error
+                            div.input-group
+                                input(type='text', placeholder="Last Name", id=`lastName${n}` name=`lastName${n}` value=(guest ? guest.members[n].lastName : '' ) required="true").member-input
+                                span.error
+                            div.input-group
+                                input(type='tel', placeholder="Phone Number", id=`phone${n}` name=`phone${n}` value=(guest ? guest.members[n].phone : '' )).member-input
+                            div.input-group
+                                input(type='email', placeholder="Email", id=`email${n}` name=`email${n}` value=(guest ? guest.members[n].email : '' ) required="true").member-input
+                                span.error
+                            div#birthday-group 
+                                div#birthday-label Birthday
+                                div#birthday-input
+                                    select(name=`month${n}`).member-input
+                                        option(disabled selected hidden) Month
+                                        for month in ['January','February','March','April','May','June','July','August','September','October','November','December']
+                                            option(value= month) #{month}
+                                    select(name=`day${n}`).member-input
+                                        option(disabled selected hidden) Day
+                                        - var day = 1
+                                        while day <= 31
+                                            if guest && guest.members[n].day===day
+                                                option(value=day selected) #{day}
+                                            else 
+                                                option(value=day) #{day}
+                                            - day++
+                            div.divider   
+                        - n++    
+                button(type="button" onclick='addMember()').text-button + ADD ANOTHER PERSON
             div.form-group
-                div.section-title MAILING ADDRESS
+                div.section-title WHERE ARE YOU?
+                div.input-group
+                    input(id="streetAddress" type='text', placeholder="Street Address", name="streetAddress" value=(guest ? guest.address.streetAddress : '') required="true")
+                    span.error
+                div.input-group
+                    input(id="city" type='text', placeholder="City", name="city", value=(guest ? guest.address.city : '') required="true")
+                    span.error
+                div.input-group
+                    input(id="state" type='text', placeholder="State / Province", name="state" value=(guest ? guest.address.state : ''))
+                    span.error
+                div.input-group
+                    input(id="zip" type='text', placeholder="Zip / Postal Code", name="zip", value=(guest ? guest.address.zip : ''))
+                    span.error
                 div.input-group
                     select(name="country" id="country")
                         each country in country_list
@@ -30,57 +85,41 @@ block content
                                     option(value= country.name selected) #{country.name}
                                 else
                                     option(value= country.name) #{country.name}
-                div.input-group
-                    input(id="streetAddress" type='text', placeholder="Street Address", name="streetAddress" value=(guest ? guest.address.streetAddress : '') required="true")
-                    span.error
-                div.input-group
-                    input(id="city" type='text', placeholder="City", name="city", value=(guest ? guest.address.city : '') required="true")
-                    span.error
-                div.input-group
-                    input(id="state" type='text', placeholder="State / Province", name="state" value=(guest ? guest.address.state : ''))
-                    span.error
-                div.input-group
-                    input(id="zip" type='text', placeholder="Zip / Postal Code", name="zip", value=(guest ? guest.address.zip : ''))
-                    span.error
-            div.form-group
-                div.section-title HOUSEHOLD MEMBERS
-                div#members-container
-                    input(type="hidden" id="memberCounter" name="memberCounter" value=(guest ? guest.memberCount : 1))
-                    - var memberCount = (guest ? guest.memberCount : 1)
-                    - var n = 0;
-                    while n < memberCount
-                        div(id= `member${n}`).member
-                            input(type='text', placeholder="First Name", name=`firstName${n}`).member-input
-                            input(type='text', placeholder="Last Name", name=`lastName${n}`).member-input
-                            input(type='tel', placeholder="Phone Number", name=`phone${n}`).member-input
-                            input(type='email', placeholder="Email", name=`email${n}`).member-input
-                            div#birthday-group 
-                                div#birthday-label Birthday
-                                div#birthday-input
-                                    select(name=`month${n}`).member-input
-                                        option(disabled selected hidden) Month
-                                        option(value="January") January
-                                        option(value="February") February
-                                    select(name=`day${n}`).member-input
-                                        option(disabled selected hidden) Day
-                                        option(value="6") 6  
-                            div.divider   
-                        - n++    
-                button(type="button" onclick='addMember()').text-button + ADD ANOTHER PERSON
             button(type="submit") SAVE
+            script(src='/javascripts/form-validation.js')
             div.member.hidden#memberTemplate
-                input(type='text', placeholder="First Name", name="firstName").member-input
-                input(type='text', placeholder="Last Name", name="lastName").member-input
-                input(type='tel', placeholder="Phone Number", name="phone").member-input
-                input(type='email', placeholder="Email", name="email").member-input
+                select(name=`title`).member-input.small-select
+                    option(disabled selected hidden) Title
+                    option(value="Mr.") Mr.
+                    option(value="Mrs.") Mrs.
+                    option(value="Miss") Miss
+                    option(value="Ms.") Ms.
+                    option(value="Dr.") Dr.
+                    option(value="Prof.") Prof.
+                    option(value="Rev.") Rev.
+                    option(value="Other") Other
+                div.input-group
+                    input(type='text', placeholder="First Name", name=`firstName` value=(guest ? guest.members[n].firstName : '' ) required="true").member-input
+                    span.error
+                div.input-group
+                    input(type='text', placeholder="Last Name", name=`lastName` value=(guest ? guest.members[n].lastName : '' ) required="true").member-input
+                    span.error
+                div.input-group
+                    input(type='tel', placeholder="Phone Number", name=`phone` value=(guest ? guest.members[n].phone : '' )).member-input
+                div.input-group
+                    input(type='email', placeholder="Email", name=`email` value=(guest ? guest.members[n].email : '' ) required="true").member-input
+                    span.error
                 div#birthday-group 
                     div#birthday-label Birthday
                     div#birthday-input
-                        select(name=`month`).member-input
+                        select(name=`month${n}`).member-input
                             option(disabled selected hidden) Month
-                            option(value="January") January
-                            option(value="February") February
-                        select(name=`day`).member-input
+                            for month in ['January','February','March','April','May','June','July','August','September','October','November','December']
+                                option(value= month) #{month}
+                        select(name=`day${n}`).member-input
                             option(disabled selected hidden) Day
-                            option(value="6") 6  
+                            - var day = 1
+                            while day <= 31
+                                option(value=day) #{day}
+                                - day++
 

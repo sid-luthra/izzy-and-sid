@@ -6,12 +6,12 @@ block content
         div Name 
         div Address
         each contact in contact_list
-            if contact.family_name
-                div #{contact.family_name}
+            if contact.familyName
+                div #{contact.familyName}
             else
                 div 
             if contact.address
-                div #{contact.address.fullAddress}
+                div #{contact.address.streetAddress}
             else
                 div
         else 

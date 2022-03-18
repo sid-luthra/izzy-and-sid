@@ -163,14 +163,22 @@ select {
   height: calc(1rem + 25px);
 }
 
+.small-select {
+  max-width: 200px;
+}
+
 ::placeholder {
   color: darkgray;
   opacity: 1;
 }
 
+.isError {
+  border: 2px solid var(--dark-theme-color);
+}
+
 .error {
   font-size: 0.8rem;
-  color: red;
+  color: var(--dark-theme-color);
   margin-left: 5px;
 }
 

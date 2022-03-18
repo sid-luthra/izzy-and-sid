@@ -207,9 +207,6 @@ exports.contact_input_get = (req, res) => {
 // Handle contact input on POST.
 exports.contact_input_post = [
 
-  body('familyName', 'Family name required').trim().isLength({ min: 1 }).escape(),
-  body('familyName', 'Family name should be longer').trim().isLength({ min: 3 }).escape(),
-
   (req, res, next) => {
     // Extract validation errors from a request.
     const errors = validationResult(req);
@@ -226,7 +223,7 @@ exports.contact_input_post = [
     const memberCount = req.body.memberCounter;
 
     const guest = new Guest({
-      familyName: req.body.familyName,
+      familyName: req.body.lastName1,
       address,
       memberCount,
       members: [],
@@ -234,7 +231,7 @@ exports.contact_input_post = [
     });
 
     for (let i = 0; i < memberCount; i += 1) {
-      console.log(`firstName${i}`);
+      const title = req.body[`title${i}`];
       const firstName = req.body[`firstName${i}`];
       const lastName = req.body[`lastName${i}`];
       const phone = req.body[`phone${i}`];
@@ -242,16 +239,8 @@ exports.contact_input_post = [
       const month = req.body[`month${i}`];
       const day = req.body[`day${i}`];
       const year = req.body[`year${i}`];
-      console.table({
-        firstName,
-        lastName,
-        phone,
-        email,
-        month,
-        day,
-        year,
-      });
       guest.members.push({
+        title,
         firstName,
         lastName,
         phone,
@@ -267,6 +256,7 @@ exports.contact_input_post = [
     } else {
       guest.save((err) => {
         if (err) { return next(err); }
+        console.log(guest);
         return res.redirect('/contact-success');
       });
     }
@@ -280,7 +270,6 @@ exports.contact_success_get = (req, res) => {
 // Display all contact info.
 exports.contact_list_get = (req, res, next) => {
   Guest.find({})
-    .sort({ family_name: 1 })
     .exec((err, listContacts) => {
       if (err) { return next(err); }
       return res.render('contact_list', { contact_list: listContacts, title: 'Admin' });
